@@ -1,7 +1,7 @@
 package com.aprendendo.test.service
         ;
 
-import com.aprendendo.test.domain.model.User;
+import com.aprendendo.test.domain.model.User.User;
 
 import java.util.List;
 

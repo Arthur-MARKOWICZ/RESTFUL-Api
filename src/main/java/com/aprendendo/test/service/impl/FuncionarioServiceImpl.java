@@ -1,7 +1,7 @@
 package com.aprendendo.test.service.impl;
 
 import com.aprendendo.test.domain.Repository.FuncionarioRepository;
-import com.aprendendo.test.domain.model.Funcionario;
+import com.aprendendo.test.domain.model.Funcionario.Funcionario;
 import com.aprendendo.test.service.FuncionarioService;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +28,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Override
     public Funcionario criar(Funcionario funcionariocriado) {
-        if (funcionarioRepository.findByNome(funcionariocriado.getNome()).getNome().equals(funcionariocriado.getNome())){
-            throw  new IllegalArgumentException("this funcionario already exists ");
+        Funcionario funcionarioExistente  =funcionarioRepository.findByNome(funcionariocriado.getNome());
+        if (funcionarioExistente != null && funcionarioExistente.getNome().equals(funcionariocriado.getNome())){
+            throw  new IllegalArgumentException("este funcionario ja esta cadastrado ");
         }
         return funcionarioRepository.save(funcionariocriado);
     }

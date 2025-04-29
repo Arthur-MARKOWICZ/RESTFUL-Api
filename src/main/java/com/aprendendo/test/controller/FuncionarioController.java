@@ -1,7 +1,7 @@
 package com.aprendendo.test.controller;
 
-import com.aprendendo.test.domain.model.Funcionario;
-import com.aprendendo.test.domain.model.User;
+import com.aprendendo.test.domain.model.Funcionario.Funcionario;
+import com.aprendendo.test.domain.model.Funcionario.FuncionarioCadastroDTO;
 import com.aprendendo.test.service.FuncionarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +19,19 @@ public class FuncionarioController {
         this.funcionarioService = funcionarioService;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Funcionario> findById(@PathVariable Long id){
+    public ResponseEntity<Funcionario> acharFuncionarioPorId(@PathVariable Long id){
         var funcionario = funcionarioService.findById(id);
         return ResponseEntity.ok(funcionario);
     }
     @GetMapping("/all")
-    public ResponseEntity<List<Funcionario>> getall(){
+    public ResponseEntity<List<Funcionario>> listarFuncionarios(){
         List<Funcionario> funcionarios = funcionarioService.getall();
         return ResponseEntity.ok(funcionarios);
     }
-    @PostMapping
-    public  ResponseEntity<Funcionario> criar(@RequestBody Funcionario funcionario){
-        var funcionarioCriado = funcionarioService.criar(funcionario);
+    @PostMapping("/cadastro")
+    public  ResponseEntity<Funcionario> cadastrarNovoFuncionario(@RequestBody FuncionarioCadastroDTO dados){
+        Funcionario funcionario = new Funcionario(dados);
+        Funcionario funcionarioCriado = funcionarioService.criar(funcionario);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(funcionarioCriado.getId())
                 .toUri();

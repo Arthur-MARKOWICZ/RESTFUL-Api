@@ -1,5 +1,5 @@
 package com.aprendendo.test.infra;
-import com.aprendendo.test.domain.model.Admin;
+import com.aprendendo.test.domain.model.Admin.Admin;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

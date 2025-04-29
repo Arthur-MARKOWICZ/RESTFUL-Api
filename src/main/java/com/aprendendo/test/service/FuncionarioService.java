@@ -1,6 +1,6 @@
 package com.aprendendo.test.service;
 
-import com.aprendendo.test.domain.model.Funcionario;
+import com.aprendendo.test.domain.model.Funcionario.Funcionario;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.aprendendo.test.domain.model;
+package com.aprendendo.test.domain.model.Funcionario;
 
 import com.aprendendo.test.domain.model.enderco.Endereco;
 import jakarta.persistence.*;
@@ -15,6 +15,14 @@ public class Funcionario {
     private double numeroDeHorasPorDia;
     private String telefone;
     private String email;
+    public Funcionario(){}
+    public Funcionario(FuncionarioCadastroDTO dados) {
+        this.nome = dados.nome();
+        this.endereco = new Endereco(dados.endereco());
+        this.numeroDeHorasPorDia = dados.numeroDeHorasPorDia();
+        this.telefone = dados.telefone();
+        this.email = dados.email();
+    }
 
     public long getId() {
         return id;

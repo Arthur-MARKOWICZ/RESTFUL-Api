@@ -1,7 +1,6 @@
-package com.aprendendo.test.domain.model;
+package com.aprendendo.test.domain.model.Admin;
 
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

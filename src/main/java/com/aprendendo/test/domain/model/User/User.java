@@ -1,4 +1,4 @@
-package com.aprendendo.test.domain.model;
+package com.aprendendo.test.domain.model.User;
 
 import com.aprendendo.test.domain.model.enderco.Endereco;
 import jakarta.persistence.*;
@@ -14,6 +14,14 @@ public class User {
     private Endereco endereco;
     private String email;
     private String senha;
+    public User(){}
+
+    public User(UserCadastroDTO dados) {
+        this.nome = dados.nome();
+        this.endereco = new Endereco(dados.endereco());
+        this.email = dados.email();
+        this.senha = dados.senha();
+    }
 
     public long getId() {
         return id;

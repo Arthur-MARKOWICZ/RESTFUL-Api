@@ -1,7 +1,6 @@
 package com.aprendendo.test.service;
 
 import com.aprendendo.test.domain.Repository.AdminRepository;
-import com.aprendendo.test.domain.model.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,7 @@
 package com.aprendendo.test.service.impl;
 
 import com.aprendendo.test.domain.Repository.UserRepository;
-import com.aprendendo.test.domain.model.User;
+import com.aprendendo.test.domain.model.User.User;
 import com.aprendendo.test.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,8 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public User criar(User usercriado) {
-        if (userRepository.findByNome(usercriado.getNome()).getNome().equals(usercriado.getNome())){
+        User usuarioExistente = userRepository.findByNome(usercriado.getNome());
+        if (usuarioExistente != null && usuarioExistente.getNome().equals(usercriado.getNome())){
             throw  new IllegalArgumentException("this user already exists  ");
         }
         return userRepository.save(usercriado);

@@ -1,8 +1,8 @@
 package com.aprendendo.test.controller;
 
 import com.aprendendo.test.domain.Repository.AdminRepository;
-import com.aprendendo.test.domain.model.Admin;
-import com.aprendendo.test.domain.model.CadastroAdminDTO;
+import com.aprendendo.test.domain.model.Admin.Admin;
+import com.aprendendo.test.domain.model.Admin.CadastroAdminDTO;
 import com.aprendendo.test.domain.model.LoginDTO;
 import com.aprendendo.test.domain.model.LoginResponseDTO;
 import com.aprendendo.test.infra.TokenService;
