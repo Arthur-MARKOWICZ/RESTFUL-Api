@@ -3,7 +3,8 @@ package com.aprendendo.test.domain.model;
 import com.aprendendo.test.domain.model.enderco.Endereco;
 import jakarta.persistence.*;
 
-@Entity(name = "tb_user")
+@Entity
+@Table(name = "tb_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,10 +3,12 @@ package com.aprendendo.test.service.impl;
 import com.aprendendo.test.domain.Repository.FuncionarioRepository;
 import com.aprendendo.test.domain.model.Funcionario;
 import com.aprendendo.test.service.FuncionarioService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Service
 public class FuncionarioServiceImpl implements FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
 
