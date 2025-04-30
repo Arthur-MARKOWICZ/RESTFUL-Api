@@ -71,4 +71,24 @@ public class Funcionario {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void alterarDados(FuncionarioAlterarDadosDTO dados) {
+        if(dados.nome() != null){
+            this.nome = dados.nome();
+        }
+        if (dados.endereco() != null){
+            this.endereco = new Endereco(dados.endereco());
+        }
+        if(dados.email() != null){
+            this.email = dados.email();
+        }
+        if(dados.numeroDeHorasPorDia() != 0){
+            this.numeroDeHorasPorDia = dados.numeroDeHorasPorDia();
+        }
+        if(dados.telefone() != null){
+            this.telefone = dados.telefone();
+        }
+    }
+
+
 }
