@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tb_task")
 public class Task {
-    @Autowired
-    FuncionarioService funcionarioServicel;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

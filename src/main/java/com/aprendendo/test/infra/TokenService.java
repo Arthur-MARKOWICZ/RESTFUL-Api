@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TokenService {
@@ -17,10 +19,15 @@ public class TokenService {
     public String generateToken(Funcionario funcionario){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            List<String> roles = funcionario.getAuthorities()
+                    .stream()
+                    .map(granted -> granted.getAuthority())
+                    .collect(Collectors.toList());
             String token = JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(funcionario.getEmail())
                     .withExpiresAt(generateExpirationDate())
+                    .withClaim("roles", roles)
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException e){
@@ -28,8 +35,8 @@ public class TokenService {
 
         }
     }
-    public String validateToken(String token){
-        try{
+    public String validateToken(String token) {
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer("auth-api")
@@ -40,8 +47,19 @@ public class TokenService {
             return null;
         }
     }
+    public List<String> extractRoles(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        var decoded = JWT.require(algorithm)
+                .withIssuer("auth-api")
+                .build()
+                .verify(token);
+        return decoded.getClaim("roles").asList(String.class);
+    }
 
-    private Instant generateExpirationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    private Instant generateExpirationDate() {
+        return LocalDateTime.now()
+                .plusHours(2)
+                .toInstant(ZoneOffset.of("-03:00"));
     }
 }
+

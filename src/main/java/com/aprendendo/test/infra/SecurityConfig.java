@@ -23,11 +23,6 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter  securityFilter;
 
-    private final UserRepository userRepository;
-
-    public SecurityConfig(UserRepository userRepository)    {
-        this.userRepository = userRepository;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,9 +31,11 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/cadastro").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/funcionario/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/funcionarios/cadastro").permitAll()
                         .requestMatchers("/v3/api-docs/**","/swagger-ui.html","swagger-ui/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/tasks/**").hasAnyRole("ADMIN", "FUNCIONARIO")
                         .anyRequest().authenticated())
                 .cors(withDefaults())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

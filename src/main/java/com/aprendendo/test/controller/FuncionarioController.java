@@ -5,6 +5,8 @@ import com.aprendendo.test.domain.model.Funcionario.*;
 import com.aprendendo.test.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -34,7 +36,11 @@ public class FuncionarioController {
     @PostMapping("/cadastro")
     public  ResponseEntity<Funcionario> cadastrarNovoFuncionario(@RequestBody FuncionarioCadastroDTO dados){
         Funcionario funcionario = new Funcionario(dados);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(dados.senha());
+        funcionario.setSenha(encryptedPassword);
+        funcionario.setRole(Role.FUNCIONARIO);
         Funcionario funcionarioCriado = funcionarioService.criar(funcionario);
+
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(funcionarioCriado.getId())
                 .toUri();
@@ -53,9 +59,18 @@ public class FuncionarioController {
     public ResponseEntity<FuncionarioAlterarDadosResponseDTO> alteraDadosFuncionario(@PathVariable Long id, @RequestBody FuncionarioAlterarDadosDTO dados){
         Funcionario funcionario = funcionarioService.findById(id);
         funcionario.alterarDados(dados);
-
         FuncionarioAlterarDadosResponseDTO dto = new FuncionarioAlterarDadosResponseDTO(funcionario);
-
         return ResponseEntity.ok(dto);
     }
+    @PutMapping("/{id}/Atualizarroles")
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity atualizarRol( @PathVariable Long id,
+                                        @RequestBody AtualizarRoleDTO dados){
+        Funcionario funcionario = funcionarioService.findById(id);
+        funcionario.setRole(dados.role());
+        funcionarioRepository.save(funcionario);
+
+        return ResponseEntity.ok().build();
+    }
+
 }

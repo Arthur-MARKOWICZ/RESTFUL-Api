@@ -1,11 +1,12 @@
 package com.aprendendo.test.controller;
 
-import com.aprendendo.test.domain.model.Admin.Admin;
-import com.aprendendo.test.domain.model.Admin.CadastroAdminDTO;
+
 import com.aprendendo.test.domain.model.Funcionario.Funcionario;
+import com.aprendendo.test.domain.model.Funcionario.FuncionarioCadastroDTO;
 import com.aprendendo.test.domain.model.LoginDTO;
 import com.aprendendo.test.domain.model.LoginResponseDTO;
 import com.aprendendo.test.infra.TokenService;
+import com.aprendendo.test.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,19 +24,14 @@ public class AutheticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    Funcionario funcionario;
-    @Autowired
     private TokenService tokenService;
 
-
-    @PostMapping("/login")
+    @PostMapping("/funcionario/login")
     public  ResponseEntity loginFuncionario(@RequestBody LoginDTO dados){
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(dados.email(),dados.senha());
         Authentication authetication = authenticationManager.authenticate(usernamePassword);
         Funcionario funcionario = (Funcionario) authetication.getPrincipal();
         String token = tokenService.generateToken(funcionario);
         return ResponseEntity.ok(new LoginResponseDTO(token));
-
-
     }
 }

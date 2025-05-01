@@ -2,17 +2,26 @@ package com.aprendendo.test.domain.model.Funcionario;
 
 import com.aprendendo.test.domain.model.enderco.Endereco;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_funcionario")
-public class Funcionario {
+public class Funcionario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     @Embedded
     private Endereco endereco;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
+    private String senha;
     private double numeroDeHorasPorDia;
     private String telefone;
     private String email;
@@ -23,6 +32,7 @@ public class Funcionario {
         this.numeroDeHorasPorDia = dados.numeroDeHorasPorDia();
         this.telefone = dados.telefone();
         this.email = dados.email();
+        this.senha = dados.senha();
     }
 
     public long getId() {
@@ -92,4 +102,34 @@ public class Funcionario {
     }
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

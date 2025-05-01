@@ -1,4 +1,5 @@
 package com.aprendendo.test.infra;
+import com.aprendendo.test.domain.Repository.FuncionarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
 
     @Autowired
-    AdminRepository adminRepository;
+    FuncionarioRepository funcionarioRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -28,7 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (token != null) {
             var email = tokenService.validateToken(token);
             if (email != null) {
-                UserDetails admin = adminRepository.findByEmail(email);
+                UserDetails admin = funcionarioRepository.findByEmail(email);
                 if (admin != null) {
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(admin, null, admin.getAuthorities());
