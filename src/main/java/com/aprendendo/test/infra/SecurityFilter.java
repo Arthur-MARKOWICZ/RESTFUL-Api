@@ -1,6 +1,4 @@
 package com.aprendendo.test.infra;
-import com.aprendendo.test.domain.Repository.AdminRepository;
-import com.aprendendo.test.domain.Repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,5 @@
 package com.aprendendo.test.service;
 
-import com.aprendendo.test.domain.Repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +12,6 @@ public class AuthorizationService implements UserDetailsService {
     private AdminRepository adminRepository;
     @Override
     public UserDetails loadUserByUsername(String  username) throws UsernameNotFoundException {
-
 
         return adminRepository.findByEmail(username);
     }

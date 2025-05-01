@@ -1,5 +1,5 @@
 package com.aprendendo.test.infra;
-import com.aprendendo.test.domain.model.Admin.Admin;
+import com.aprendendo.test.domain.model.Funcionario.Funcionario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -14,12 +14,12 @@ import java.time.ZoneOffset;
 public class TokenService {
     //por em uma variavel de ambiente
     private String secret = "test";
-    public String generateToken(Admin admin){
+    public String generateToken(Funcionario funcionario){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("auth-api")
-                    .withSubject(admin.getEmail())
+                    .withSubject(funcionario.getEmail())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
             return token;

@@ -12,6 +12,7 @@ public class Funcionario {
     private String nome;
     @Embedded
     private Endereco endereco;
+    private Role role;
     private double numeroDeHorasPorDia;
     private String telefone;
     private String email;

@@ -1,7 +1,7 @@
 package com.aprendendo.test.domain.model.Task;
 
 import com.aprendendo.test.domain.model.Funcionario.Funcionario;
-import com.aprendendo.test.domain.model.User.User;
+
 import com.aprendendo.test.service.FuncionarioService;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
