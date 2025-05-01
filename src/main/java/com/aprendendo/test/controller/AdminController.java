@@ -4,7 +4,6 @@ import com.aprendendo.test.domain.Repository.FuncionarioRepository;
 import com.aprendendo.test.domain.model.Funcionario.Funcionario;
 import com.aprendendo.test.domain.model.Funcionario.FuncionarioDeletarDTO;
 import com.aprendendo.test.service.FuncionarioService;
-import jakarta.persistence.Access;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-public class Admin {
+public class AdminController {
     @Autowired
     FuncionarioService funcionarioService;
     @Autowired

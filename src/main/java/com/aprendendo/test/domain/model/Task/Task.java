@@ -47,4 +47,59 @@ public class Task {
         this.responsavel = responsavel;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Prioridade getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public LocalDateTime getPrazo() {
+        return prazo;
+    }
+
+    public void setPrazo(LocalDateTime prazo) {
+        this.prazo = prazo;
+    }
+
+    public Funcionario getCriador() {
+        return criador;
+    }
+
+    public void setCriador(Funcionario criador) {
+        this.criador = criador;
+    }
+
+    public Funcionario getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(Funcionario responsavel) {
+        this.responsavel = responsavel;
+    }
 }
