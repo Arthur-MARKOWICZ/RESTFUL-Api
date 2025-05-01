@@ -23,16 +23,13 @@ public class FuncionarioController {
     public FuncionarioController(FuncionarioService funcionarioService) {
         this.funcionarioService = funcionarioService;
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Funcionario> acharFuncionarioPorId(@PathVariable Long id){
         var funcionario = funcionarioService.findById(id);
         return ResponseEntity.ok(funcionario);
     }
-    @GetMapping("/all")
-    public ResponseEntity<List<Funcionario>> listarFuncionarios(){
-        List<Funcionario> funcionarios = funcionarioService.getall();
-        return ResponseEntity.ok(funcionarios);
-    }
+
     @PostMapping("/cadastro")
     public  ResponseEntity<Funcionario> cadastrarNovoFuncionario(@RequestBody FuncionarioCadastroDTO dados){
         Funcionario funcionario = new Funcionario(dados);
@@ -46,14 +43,7 @@ public class FuncionarioController {
                 .toUri();
         return ResponseEntity.created(location).body(funcionarioCriado);
     }
-    @DeleteMapping("/delete/{id}")
-    @Transactional
-    public  ResponseEntity<FuncionarioDeletarDTO> deletarFuncionario(@PathVariable Long id){
-       Funcionario funcionario =  funcionarioService.findById(id);
-       FuncionarioDeletarDTO dto = new FuncionarioDeletarDTO(funcionario);
-       funcionarioRepository.delete(funcionario);
-       return ResponseEntity.ok(dto);
-    }
+
         @PutMapping("/alterardados/{id}")
         @Transactional
     public ResponseEntity<FuncionarioAlterarDadosResponseDTO> alteraDadosFuncionario(@PathVariable Long id, @RequestBody FuncionarioAlterarDadosDTO dados){
@@ -63,7 +53,7 @@ public class FuncionarioController {
         return ResponseEntity.ok(dto);
     }
     @PutMapping("/{id}/Atualizarroles")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity atualizarRol( @PathVariable Long id,
                                         @RequestBody AtualizarRoleDTO dados){
         Funcionario funcionario = funcionarioService.findById(id);
