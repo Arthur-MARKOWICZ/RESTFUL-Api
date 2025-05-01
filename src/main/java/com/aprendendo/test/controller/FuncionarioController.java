@@ -41,6 +41,7 @@ public class FuncionarioController {
         return ResponseEntity.created(location).body(funcionarioCriado);
     }
     @DeleteMapping("/delete/{id}")
+    @Transactional
     public  ResponseEntity<FuncionarioDeletarDTO> deletarFuncionario(@PathVariable Long id){
        Funcionario funcionario =  funcionarioService.findById(id);
        FuncionarioDeletarDTO dto = new FuncionarioDeletarDTO(funcionario);

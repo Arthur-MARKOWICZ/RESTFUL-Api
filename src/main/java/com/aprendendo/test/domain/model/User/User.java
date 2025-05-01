@@ -62,4 +62,16 @@ public class User {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public void alterarDados(UserAlterarDadosDTO dados) {
+        if(dados.nome() != null){
+            this.nome = dados.nome();
+        }
+        if (dados.endereco() != null){
+            this.endereco = new Endereco(dados.endereco());
+        }
+        if(dados.email() != null){
+            this.email = dados.email();
+        }
+    }
 }
