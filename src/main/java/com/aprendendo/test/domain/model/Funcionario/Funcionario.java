@@ -33,6 +33,7 @@ public class Funcionario implements UserDetails {
         this.telefone = dados.telefone();
         this.email = dados.email();
         this.senha = dados.senha();
+        this.role = Role.FUNCIONARIO;
     }
 
     public long getId() {

@@ -35,7 +35,6 @@ public class FuncionarioController {
         Funcionario funcionario = new Funcionario(dados);
         String encryptedPassword = new BCryptPasswordEncoder().encode(dados.senha());
         funcionario.setSenha(encryptedPassword);
-        funcionario.setRole(Role.FUNCIONARIO);
         Funcionario funcionarioCriado = funcionarioService.criar(funcionario);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
