@@ -2,11 +2,14 @@ package com.aprendendo.test.controller;
 
 import com.aprendendo.test.domain.Repository.FuncionarioRepository;
 import com.aprendendo.test.domain.model.Funcionario.Funcionario;
+import com.aprendendo.test.domain.model.Funcionario.FuncionarioCadastroDTO;
 import com.aprendendo.test.domain.model.Funcionario.FuncionarioDeletarDTO;
+import com.aprendendo.test.domain.model.Funcionario.Role;
 import com.aprendendo.test.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,4 +38,5 @@ public class AdminController {
         List<Funcionario> funcionarios = funcionarioService.getall();
         return ResponseEntity.ok(funcionarios);
     }
+
 }
