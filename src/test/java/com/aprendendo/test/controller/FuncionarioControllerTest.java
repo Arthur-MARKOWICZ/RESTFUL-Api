@@ -1,5 +1,7 @@
 package com.aprendendo.test.controller;
 
+import com.aprendendo.test.NoSecurityTestConfig;
+import com.aprendendo.test.TestApplication;
 import com.aprendendo.test.domain.Repository.FuncionarioRepository;
 import com.aprendendo.test.domain.model.Funcionario.AtualizarRoleDTO;
 import com.aprendendo.test.domain.model.Funcionario.Funcionario;
@@ -14,10 +16,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-
+@Import(NoSecurityTestConfig.class)
 class FuncionarioControllerTest {
 
     @Autowired
@@ -57,6 +63,7 @@ class FuncionarioControllerTest {
         admin.setRole(Role.ADMIN);
         funcionarioRepository.save(admin);
     }
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     @DisplayName("deve cadastrar o funcionario e retornar o funcionario criado")
     void cadastroFuncionarioCase1() throws Exception {
