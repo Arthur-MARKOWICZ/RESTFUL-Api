@@ -14,7 +14,7 @@ import java.util.List;
 public class Funcionario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String nome;
     @Embedded
     private Endereco endereco;
