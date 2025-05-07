@@ -9,4 +9,6 @@ public record FuncionarioAlterarDadosResponseDTO(String nome, Endereco endereco,
         this(funcionario.getNome(), funcionario.getEndereco(), funcionario.getNumeroDeHorasPorDia(),
                 funcionario.getTelefone(), funcionario.getEmail());
     }
+
+
 }

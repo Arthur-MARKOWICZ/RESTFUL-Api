@@ -26,7 +26,7 @@ public class FuncionarioController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Funcionario> acharFuncionarioPorId(@PathVariable Long id){
-        var funcionario = funcionarioService.findById(id);
+        Funcionario funcionario = funcionarioService.buscarPorId(id);
         return ResponseEntity.ok(funcionario);
     }
 
@@ -46,20 +46,15 @@ public class FuncionarioController {
         @PutMapping("/alterardados/{id}")
         @Transactional
     public ResponseEntity<FuncionarioAlterarDadosResponseDTO> alteraDadosFuncionario(@PathVariable Long id, @RequestBody FuncionarioAlterarDadosDTO dados){
-        Funcionario funcionario = funcionarioService.findById(id);
-        funcionario.alterarDados(dados);
-        FuncionarioAlterarDadosResponseDTO dto = new FuncionarioAlterarDadosResponseDTO(funcionario);
+       FuncionarioAlterarDadosResponseDTO dto = funcionarioService.alterarDados(id,dados);
         return ResponseEntity.ok(dto);
     }
-    @PutMapping("/{id}/Atualizarroles")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity atualizarRol( @PathVariable Long id,
+    @PutMapping("/{id}/Atualizarroles")
+    public ResponseEntity<FuncionarioAlterarRoleResponseDTO> atualizarRol( @PathVariable Long id,
                                         @RequestBody AtualizarRoleDTO dados){
-        Funcionario funcionario = funcionarioService.findById(id);
-        funcionario.setRole(dados.role());
-        funcionarioRepository.save(funcionario);
-
-        return ResponseEntity.ok().build();
+     FuncionarioAlterarRoleResponseDTO dto =  funcionarioService.alterarRole(id,dados);
+        return ResponseEntity.ok(dto);
     }
 
 }
